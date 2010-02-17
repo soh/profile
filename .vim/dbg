@@ -1,0 +1,230 @@
+if &cp | set nocp | endif
+let s:cpo_save=&cpo
+set cpo&vim
+map! <xHome> <Home>
+map! <xEnd> <End>
+map! <S-xF4> <S-F4>
+map! <S-xF3> <S-F3>
+map! <S-xF2> <S-F2>
+map! <S-xF1> <S-F1>
+map! <xF4> <F4>
+map! <xF3> <F3>
+map! <xF2> <F2>
+map! <xF1> <F1>
+vmap  <Plug>FtcDlacVisual
+nmap  <Plug>FtcDlacNormal
+map  :set ft=html
+map  :bn
+vmap ,qx `>a /`<iqx/ 
+vmap ,qw `>a /`<iqw/ 
+vmap ,qq `>a /`<iqq/ 
+vmap ,qa `>a /`<iqa/ 
+vmap ,q `>a /`<iq/ 
+vmap ,} `>a }`<i{ 
+vmap ,{ `>a}`<i{
+vmap ,] `>a ]`<i[ 
+vmap ,[ `>a]`<i[
+vmap ,) `>a )`<i( 
+vmap ,( `>a)`<i(
+vmap ," `>a"`<i"
+vmap ,' `>a'`<i'
+nmap ,qx lbiqx/ ea /
+omap ,qx lbiqx/ ea /
+nmap ,qw lbiqw/ ea /
+omap ,qw lbiqw/ ea /
+nmap ,qq lbiqq/ ea /
+omap ,qq lbiqq/ ea /
+nmap ,qa lbiqa/ ea /
+omap ,qa lbiqa/ ea /
+nmap ,q lbiq/ ea /
+omap ,q lbiq/ ea /
+nmap ,} lbi{ ea }
+omap ,} lbi{ ea }
+nmap ,] lbi[ ea ]
+omap ,] lbi[ ea ]
+nmap ,) lbi( ea )
+omap ,) lbi( ea )
+nmap ,' lbi'ea'
+omap ,' lbi'ea'
+nmap ," lbi"ea"
+omap ," lbi"ea"
+nmap ,{ lbi{ea}
+omap ,{ lbi{ea}
+nmap ,[ lbi[ea]
+omap ,[ lbi[ea]
+nmap ,( lbi(ea)
+omap ,( lbi(ea)
+imap ã <Plug>FtcTc
+vmap [% [%m'gv``
+vmap \c <Plug>FtcTc
+nmap \c <Plug>FtcTc
+map \o :nohlsearch
+vmap ]% ]%m'gv``
+map <F12> :!kps xplanet:!~/.xplanet/run
+map <C-F9> :!chmod ug+x '%'
+map <F9> :!clear;./'%'
+map <F6> :w:!/usr/local/slash/bin/template-tool -u virtslash -s '%:p':!sudo apachectl restart
+map <F4> :!wget -O /tmp/rancid.index.pl.html http://rancid/index.pl
+map <C-F4> :!wget -O /tmp/rancid.index.pl.html http://rancid/index.pl:!gvim "+set ft=html" "+set nowrap" -geom 200x100 /tmp/rancid.index.pl.html
+noremap <C-F2> :!gvim ~/.vim/ftplugin/html/HTML.vim :source ~/.vim/ftplugin/html/HTML.vim
+noremap <F2> :source ~/.vim/ftplugin/html/HTML.vim
+noremap <C-F1> :!gvim ~/.vimrc :source ~/.vimrc
+noremap <F1> :source ~/.vimrc
+map <xHome> <Home>
+map <xEnd> <End>
+map <S-xF4> <S-F4>
+map <S-xF3> <S-F3>
+map <S-xF2> <S-F2>
+map <S-xF1> <S-F1>
+map <xF4> <F4>
+map <xF3> <F3>
+map <xF2> <F2>
+map <xF1> <F1>
+imap  <Left>
+imap <NL> <Down>
+imap  <Up>
+imap  <Right>
+vmap ã <Plug>FtcTc
+nmap ã <Plug>FtcTc
+imap \c <Plug>FtcTc
+let &cpo=s:cpo_save
+unlet s:cpo_save
+set autoindent
+set autowrite
+set backspace=indent,eol,start
+set backupdir=~/.vim/.backup
+set cinkeys=0{,0},0),:,!^F,o,O,e
+set cpoptions=aABceFsM
+set diffopt=filler,context:999
+set expandtab
+set exrc
+set fileencodings=utf-8,latin1
+set formatoptions=tcql
+set helplang=en
+set hlsearch
+set ignorecase
+set incsearch
+set laststatus=2
+set modelines=3
+set printfont=Courier_New:h8
+set printoptions=number:y,portrait:n
+set ruler
+set shiftround
+set shiftwidth=4
+set smartcase
+set smartindent
+set statusline=%<%f\ %h%m%r%=%-14.(%l,%c%V%)\ %P
+set tabstop=4
+let s:so_save = &so | let s:siso_save = &siso | set so=0 siso=0
+let v:this_session=expand("<sfile>:p")
+silent only
+cd ~/
+set shortmess=aoO
+badd +0 .vimrc
+args .vimrc
+edit .vimrc
+set splitbelow splitright
+set nosplitbelow
+set nosplitright
+wincmd t
+set winheight=1 winwidth=1
+argglobal
+noremap <buffer> <silent> [" :call search('\%(^\s*".*\n\)\%(^\s*"\)\@!', "bW")
+noremap <buffer> <silent> [] :call search('^\s*endf*\%[unction]\>', "bW")
+noremap <buffer> <silent> [[ :call search('^\s*fu\%[nction]\>', "bW")
+noremap <buffer> <silent> ]" :call search('^\(\s*".*\n\)\@<!\(\s*"\)', "W")
+noremap <buffer> <silent> ][ :call search('^\s*endf*\%[unction]\>', "W")
+noremap <buffer> <silent> ]] :call search('^\s*fu\%[nction]\>', "W")
+setlocal noarabic
+setlocal autoindent
+setlocal autoread
+setlocal nobinary
+setlocal bufhidden=
+setlocal buflisted
+setlocal buftype=
+setlocal nocindent
+setlocal cinkeys=0{,0},0),:,!^F,o,O,e
+setlocal cinoptions=
+setlocal cinwords=if,else,while,do,for,switch
+setlocal comments=sO:\"\ -,mO:\"\ \ ,eO:\"\",:\"
+setlocal commentstring=\"%s
+setlocal complete=.,w,b,u,t,i
+setlocal nocopyindent
+setlocal define=
+setlocal dictionary=
+setlocal nodiff
+setlocal equalprg=
+setlocal errorformat=
+setlocal expandtab
+if &filetype != 'vim'
+setlocal filetype=vim
+endif
+setlocal foldcolumn=0
+setlocal foldenable
+setlocal foldexpr=0
+setlocal foldignore=#
+setlocal foldlevel=0
+setlocal foldmarker={{{,}}}
+set foldmethod=marker
+setlocal foldmethod=marker
+setlocal foldminlines=1
+setlocal foldnestmax=20
+set foldtext=MyFoldText()
+setlocal foldtext=MyFoldText()
+setlocal formatoptions=croql
+setlocal grepprg=
+setlocal iminsert=0
+setlocal imsearch=0
+setlocal include=
+setlocal includeexpr=
+setlocal indentexpr=GetVimIndent()
+setlocal indentkeys=0{,0},:,0#,!^F,o,O,e,=end,=else,=cat,=fina,=END,0\\
+setlocal noinfercase
+setlocal iskeyword=@,48-57,_,192-255
+setlocal keymap=
+setlocal keywordprg=
+set linebreak
+setlocal linebreak
+setlocal nolisp
+setlocal nolist
+setlocal makeprg=
+setlocal matchpairs=(:),{:},[:]
+setlocal modeline
+setlocal modifiable
+setlocal nrformats=octal,hex
+setlocal nonumber
+setlocal path=
+setlocal nopreserveindent
+setlocal nopreviewwindow
+setlocal noreadonly
+setlocal norightleft
+setlocal rightleftcmd=search
+setlocal noscrollbind
+setlocal shiftwidth=4
+setlocal noshortname
+setlocal smartindent
+setlocal softtabstop=0
+setlocal suffixesadd=
+setlocal swapfile
+if &syntax != 'vim'
+setlocal syntax=vim
+endif
+setlocal tabstop=4
+setlocal tags=
+setlocal textwidth=78
+setlocal thesaurus=
+setlocal nowinfixheight
+setlocal wrap
+setlocal wrapmargin=0
+let s:l = 24 - ((23 * winheight(0) + 27) / 55)
+if s:l < 1 | let s:l = 1 | endif
+exe s:l
+normal! zt
+24
+normal! 0
+set winheight=1 winwidth=20 shortmess=filnxtToO
+let s:sx = expand("<sfile>:p:r")."x.vim"
+if file_readable(s:sx)
+  exe "source " . s:sx
+endif
+let &so = s:so_save | let &siso = s:siso_save

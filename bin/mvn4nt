@@ -1,0 +1,20 @@
+#!/usr/bin/perl
+use strict;
+use warnings;
+
+use File::Copy;
+
+my $from_dir = '/usr/local/slash/themes/strict/templates';
+my $to_dir   = '/usr/local/slash/themes/n4n1/templates';
+my $del_dir  = '/usr/local/slash/themes/n4n1/templates/working';
+
+my $filename = $ARGV[ 0 ];
+
+die "Must give a filename.\n" unless $filename;
+die "Must give a filename that exists in FROM_DIR( $from_dir ).\n" unless( -e "$from_dir/$filename" );
+
+# first, copy file from current dir
+copy( "$from_dir/$filename", $to_dir ) or die "Cannot copy file ( $from_dir/$filename ).";
+
+# second, if the above succeeds, remove it from the n4n working dir
+unlink( "$del_dir/$filename" ) or die "Cannot delete working file( $del_dir/$filename ).";

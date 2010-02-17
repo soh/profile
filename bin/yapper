@@ -1,0 +1,91 @@
+#!/usr/bin/env perl
+use strict;
+use warnings;
+
+use lib 'lib';
+use Yapper;
+
+=head1 NAME
+
+Yapper - Yet Another Perl blog tool.
+
+=head1 SYNOPSIS
+
+yapper [OPERATION] [FILE]
+
+Perform [OPERATION], optionally on [FILE].  For some operations, [FILE] is
+required.  [OPERATION] can be one of:
+
+    Blog operations:
+      --add-post [name]     Creates an empty post file in your post path.
+      --publish_post [post] Render the post YAML file into the publish path.
+
+    Other:
+      --version             Yapper version. 
+      --help                This help.
+
+    Example workflow:
+
+      $ yapper --add-post cats
+      $ vim posts/cats.yaml
+      $ yapper --publish posts/cats.yaml
+      $ # rsync operation of your choice
+
+=head1 DESCRIPTION
+
+Yapper is a simple way to manage a blog.  Yapper generates static HTML files
+from local YAML files.
+
+=cut
+
+Yapper->new({ config_path => '.' })->configure( @ARGV )->dispatch;
+
+__END__
+
+=head1 AUTHOR
+
+Randall Hansen, C<< <legless at cpan.org> >>
+
+=head1 BUGS
+
+I strive for perfection but am, in fact, mortal.  Please report any bugs or feature requests to C<bug-yapper at rt.cpan.org>, or through the web interface at L<http://rt.cpan.org/NoAuth/ReportBug.html?Queue=Yapper>.  I will be notified, and then you'll automatically be notified of progress on your bug as I make changes.
+
+=head1 SUPPORT
+
+You can find documentation for this module with the perldoc command.
+
+    perldoc Yapper
+
+You can also look for information at:
+
+=over 4
+
+=item * AnnoCPAN: Annotated CPAN documentation
+
+L<http://annocpan.org/dist/Yapper>
+
+=item * CPAN Ratings
+
+L<http://cpanratings.perl.org/d/Yapper>
+
+=item * RT: CPAN's request tracker
+
+L<http://rt.cpan.org/NoAuth/Bugs.html?Dist=Yapper>
+
+=item * Search CPAN
+
+L<http://search.cpan.org/dist/Yapper>
+
+=back
+
+=head1 ACKNOWLEDGEMENTS
+
+=head1 COPYRIGHT & LICENSE
+
+Copyright 2007 Randall Hansen, all rights reserved.
+
+This program is free software; you can redistribute it and/or modify it
+under the same terms as Perl itself.
+
+=cut
+

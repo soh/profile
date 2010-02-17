@@ -1,0 +1,42 @@
+#!/usr/bin/perl
+use strict;
+use warnings;
+
+use File::Copy;
+use File::Listing;
+
+my $from_dir     = '/usr/local/slash/themes/strict/templates';
+my $to_dir       = '/usr/local/slash/themes/n4n1/templates';
+my $working_dir  = '/usr/local/slash/themes/n4n1/templates/working';
+
+# my $filename = $ARGV[ 0 ];
+
+my ( $name, $type, $size, $mtime, $mode );
+for( parse_dir( `ls -lAoSr` )) {
+    ( $name, $type, $size, $mtime, $mode ) = @$_;
+    last;
+}
+
+my $filename = $name;
+
+die "Must give a filename.\n" unless $filename;
+die "Filename must exist in FROM_DIR( $from_dir ).\n" unless( -e "$from_dir/$filename" );
+die "Filename must exist in WORKING_DIR( $working_dir ).\n" unless( -e "$working_dir/$filename" );
+die "Filename already exists in TO_DIR( $to_dir ).\n" if( -e "$to_dir/$filename" );
+
+system( "gvimdiff", "-o", "$working_dir/$filename", "$from_dir/$filename" ) && die "Can't diff ( $! )\n";
+
+print "-- Move? [y/e/N] > ";
+chomp( my $foo = <STDIN> );
+
+if( $foo =~ /^y|e$/ ) { # copy file from strict dir && remove it from the working dir
+    copy( "$from_dir/$filename", $to_dir ) or die "Cannot copy file ( $from_dir/$filename ).";
+    print "Copy successful...";
+    unlink( "$working_dir/$filename" ) or die "Cannot delete working file( $working_dir/$filename ).";
+    print "unlink successful.\n";
+}
+
+if( $foo eq 'e' ) { # then edit the file
+    system( "gvim", "$to_dir/$filename" ) && die "Can't edit file ( $! )\n";
+}
+

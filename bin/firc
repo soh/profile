@@ -1,0 +1,1 @@
+ssh -p 22 -f -N  -L6668:www.jamison.org:6668 -l soh www.jamison.org 

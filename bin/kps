@@ -1,0 +1,86 @@
+#!/usr/bin/env perl
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# looks through process table for a particular pattern in a command
+# line, then asks to kill it
+# ignores process ids equal to or higher than our own
+#
+# TODO
+#  - multiple input patterns
+#  - multiple results
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+use strict;
+use warnings;
+
+use Data::Dumper;
+use Proc::ProcessTable;
+use Term::ReadKey;
+
+my @EXCLUDE = ( 'man', 'vim', 'ssh-agent' );
+
+my $ps = new Proc::ProcessTable;
+my $pattern = $ARGV[ 0 ];
+
+my @found;
+if( $pattern ) {
+    for my $p( @{ $ps->table }) {
+        next if $p->pid == $$;
+        my $cmd = $p->cmndline;
+        my $ok = 0;
+        for my $ex( @EXCLUDE ) {
+            if( grep /$ex/ => ( $cmd )) {
+                $ok = 0;
+                last;
+            }
+            $ok = 1;
+        }
+        push @found => $p
+            if $ok and $p->cmndline =~ /$pattern/;
+    }
+
+    exit 0 unless @found;
+    for( @found ) {
+        ask_to_kill( $_ );
+    }
+    ReadMode 0;
+}
+
+sub ask_to_kill {
+    my( $process ) = @_;
+        my $answer;
+        print '[', $process->pid, ': ', $process->cmndline, '] Kill (y/N)? > ';
+        ReadMode 4; # turn off control keys
+        while( not defined( $answer = ReadKey( -1 ))) { }
+        kill 15, $process->pid
+            if( $answer =~ /y/i );
+        print "\n";
+}
+__END__
+
+using readkey:
+else {
+    print "Get key $key\n";
+    ReadMode 0; # Reset tty mode before exiting
+}
+
+# below is the beginning of a 'roll-yer-own' implementation; *much* faster,
+# but depends on the portability of ps *cough*
+#
+#  --- greps the output of 'ps' for a particular pattern;
+# my @ps = `ps axw`;
+# my $pattern = $ARGV[ 0 ];
+# 
+# if( $pattern )
+# {
+#     my @process_bits;
+#     foreach my $process( @ps )
+#     {
+#         @process_bits = split / /, $process;
+#         while(( $process_bits[0] eq '' ) || ( $process_bits[0] eq '' )) { shift @process_bits };
+#         print Dumper \@process_bits;
+#         print Dumper $process if( $process =~ /$pattern/);
+#     }
+# }
+# print "process = $$\n";
+

@@ -1,0 +1,8 @@
+default:
+	@echo '* crickets *'
+
+cowboy:
+	cd ~/clients/opensourcery/clients/cowboygorilla/current/
+	pwd
+
+# vim:ft=make

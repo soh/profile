@@ -1,0 +1,58 @@
+#!/usr/bin/perl
+use strict;
+use warnings;
+
+$|++;
+use Data::Dumper;
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+my( @entries, $size, $name );
+my $PRECISION = 1;
+
+format STDOUT =
+@>>>>>>>  @<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+$size, $name
+.
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+my $dus = `du -sk *|sort -nr`;
+for( split /\n/, $dus ) {
+    my @e = split /\s+/;
+    $e[ 0 ] = tohuman( $e[ 0 ] );
+    ( $size, $name ) = @e;
+    write( STDOUT );
+}
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+sub tohuman {
+    my( $bytes ) = @_;
+
+    my @ords = ( qw/ 0 k M G /);
+    for( 1..@ords ) {
+        my $temp = div1024( $bytes, $_ - 1 );
+        return $temp .' '. $ords[ $_ ] if $bytes < ( 1024 * $_ );
+    }
+}
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+sub div1024 {
+    my( $bytes, $reps ) = @_;
+    $reps = 1 unless defined $reps;
+
+    for( 1..$reps ) {
+        $bytes = $bytes / 1024;
+    }
+    $bytes = sprintf( "%.${ PRECISION }f", $bytes );
+    return $bytes;
+}
+
+
+__END__
+
+my $param_format = <<'...';
+@<<<<<<<<<<<<<<<<<<< => @<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+...
+
+formline( $param_format, 'foo', 'bar' );
+
+print $^A;

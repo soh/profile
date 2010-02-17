@@ -1,0 +1,114 @@
+#!/usr/bin/perl
+use strict;
+use warnings;
+
+# TODO
+# - multiple uris on command line, detection for them all
+# - if given a 't' switch and no windows are open, open two tabs
+# - look up domain first
+
+use constant DEBUG => 0;
+use Getopt::Long;
+
+my $uri = '/home/soh/dev/local/www/start.html';
+my $tab     = 0;
+my $window  = 0;
+my $file    = 0;
+
+my $result = GetOptions(
+    "tab"       => \$tab,
+    "window"    => \$window,
+    "file"      => \$file,
+);
+
+if( $ARGV[0] )
+{
+    $uri = $ARGV[0];
+    if( -e $uri ) # means we have a file
+    {
+        DEBUG && print "got a FILE ($uri)\n";
+        unless( $uri =~ /^\// )
+        {
+            DEBUG && print "Path is bare\n";
+            $uri = "$ENV{ PWD }/$uri";
+        }
+    }
+    else 
+    {
+        DEBUG && print "NOT a file\n";
+        $uri = "http://$uri";
+    }
+}
+
+my $cmdline = '';
+
+`mozilla -remote "ping()"`;
+if( $? ) # if mozilla is NOT running
+{
+    $cmdline = $uri
+}
+else
+{
+    if( $tab )
+    {
+        DEBUG && print "MOZ new tab\n";
+        $cmdline = "-remote \"openurl($uri,new-tab)\"";
+    }
+    elsif( $window )
+    {
+        DEBUG && print "MOZ new window\n";
+        $cmdline = "-remote \"openURL( $uri, new-window )\"";
+    }
+    else
+    {
+        DEBUG && print "MOZ existing window\n";
+        $cmdline = "-remote \"openURL( $uri )\"";
+    }
+}
+
+system "mozilla $cmdline &" unless DEBUG;
+DEBUG && print "mozilla $cmdline & \n";
+
+__END__
+TESTS
+mozilla NOT running
+    moz
+    mozt
+    mozw
+    
+    moz google.com
+    mozt google.com
+    mozw google.com
+    
+    moz foofoobar
+    mozt foofoobar
+    mozw foofoobar
+    
+    cd /home/soh/dev/local/www;moz w3.html
+    cd /home/soh/dev/local/www;mozt w3.html
+    cd /home/soh/dev/local/www;mozw w3.html
+    
+    cd;moz /home/soh/dev/local/www/w3.html
+    cd;mozt /home/soh/dev/local/www/w3.html
+    cd;mozw /home/soh/dev/local/www/w3.html
+
+mozilla RUNNING
+    moz
+    mozt
+    mozw
+    
+    moz google.com
+    mozt google.com
+    mozw google.com
+    
+    moz foofoobar
+    mozt foofoobar
+    mozw foofoobar
+    
+    cd /home/soh/dev/local/www;moz w3.html
+    cd /home/soh/dev/local/www;mozt w3.html
+    cd /home/soh/dev/local/www;mozw w3.html
+    
+    cd;moz /home/soh/dev/local/www/w3.html
+    cd;mozt /home/soh/dev/local/www/w3.html
+    cd;mozw /home/soh/dev/local/www/w3.html

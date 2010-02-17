@@ -1,0 +1,48 @@
+#!/usr/bin/perl
+use strict;
+use warnings;
+
+use Date::Format;
+
+# bubbles ###########################################################
+# updates a page at sonofhans with current bubble status
+
+my $template = "/home/soh/dev/local/www/sonofhans/res/tpl/bubbles.tpl";
+my $indexfile = "/home/soh/dev/local/www/sonofhans/public_html/bubbles/index.html";
+my $tempfile = ".bubbles.tmp";
+
+use Data::Dumper;
+use Getopt::Long;
+use CGI::FastTemplate;
+
+
+# 1 get input message or exit
+    my $message;
+    my $go_result = GetOptions(
+        "message=s"    => \$message,
+    );
+    die "Gotta say SOMEthing!\n" unless $message;
+    my $date = time2str("%A, %b %e %Y", time );
+
+
+# 2 setup template 
+    my $tpl = new CGI::FastTemplate();
+    $tpl->define( main => $template ); 
+
+
+# 2.5 put data into template 
+    $tpl->assign(
+        DATE    => $date,
+        MESSAGE => $message,
+    );
+    $tpl->parse( MAIN => "main" );
+    my $index = $tpl->fetch( "MAIN" );
+
+
+# 3 output template to temp file 
+    open( INDEX, ">$indexfile" ) || die( "can't open output file $!" );
+    print INDEX $$index;
+    close( INDEX );
+
+    my $ex_result = system "scp $indexfile sonofhan\@sonofhans.net:~/public_html/bubbles/index.html";
+

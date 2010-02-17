@@ -1,0 +1,10 @@
+#!/usr/bin/perl
+use strict;
+use warnings;
+
+my $localperl = '/usr/local/lib/perl/5.6.1';
+my $input = $ARGV[ 0 ];
+if( $input ) {
+    print $input . "\n";
+}
+

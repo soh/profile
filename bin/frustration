@@ -1,0 +1,19 @@
+#!/usr/bin/perl
+use strict;
+use warnings;
+use Data::Dumper;
+
+# when invoked, write timestamp to file
+
+my $store = $ENV{ HOME } .'/.frustration';
+open STORE, ">>$store" || die "Cannot open store: $!";
+
+# record
+my $now = localtime( time );
+print STORE "$now\n";
+close STORE;
+
+# report
+my $lines = `wc -l < $store`;
+$lines =~ s/ //g;
+print "Frustrated: $lines";

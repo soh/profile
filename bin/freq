@@ -1,0 +1,29 @@
+#!/usr/bin/perl
+use strict;
+use warnings;
+
+use Data::Dumper;
+
+our $VERSION = 0.06;
+
+my %frequency;
+while( <STDIN> ) {
+    chomp;
+    $frequency{ $_ }++;
+}
+out( \%frequency );
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+sub out {
+    my( $frequency ) = @_;
+    return unless $frequency;
+
+    my @sorted = sort{
+        $frequency->{ $b } <=> $frequency->{ $a }
+                           ||
+                        $a cmp $b
+    } keys %$frequency;
+
+    print sprintf( '%6s: %s', $frequency->{ $_ }, $_ ), "\n"
+        for @sorted;
+}

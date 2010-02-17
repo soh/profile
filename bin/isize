@@ -1,0 +1,22 @@
+#!/usr/bin/env perl
+use strict;
+use warnings;
+
+# isize
+# gets image size in format suitable for an HTML img tag
+# prints it and copies it to the OSX clipboard
+
+use Image::Size;
+use Data::Dumper;
+
+my $path = $ARGV[0];
+print Dumper $path;
+
+my( $x, $y ) = imgsize( $path );
+
+my $html = qq/width="$x" height="$y"\n/;
+my $css = qq/    width : ${x}px;\n    height : ${y}px;\n/;
+
+system "echo -n '${html}$css' | pbcopy";
+print "$html$css";
+

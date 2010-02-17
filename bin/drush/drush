@@ -1,0 +1,49 @@
+#!/usr/bin/env bash
+# $Id: drush,v 1.9 2009/10/13 04:36:25 grugnog Exp $
+#
+# This script is a simple wrapper that will run Drush with the most appropriate
+# php executable it can find.
+#
+
+# Get the absolute path of this executable
+ORIGDIR=$(pwd)
+SELF_PATH=$(cd -P -- "$(dirname -- "$0")" && pwd -P) && SELF_PATH=$SELF_PATH/$(basename -- "$0")
+
+# Resolve symlinks - this is the equivalent of "readlink -f", but also works with non-standard OS X readlink.
+while [ -h $SELF_PATH ]; do
+    # 1) cd to directory of the symlink
+    # 2) cd to the directory of where the symlink points
+    # 3) Get the pwd
+    # 4) Append the basename
+    DIR=$(dirname -- "$SELF_PATH")
+    SYM=$(readlink $SELF_PATH)
+    SELF_PATH=$(cd $DIR && cd $(dirname -- "$SYM") && pwd)/$(basename -- "$SYM")
+done
+cd "$ORIGDIR"
+
+# Build the path to drush.php.
+SCRIPT_PATH=$(dirname $SELF_PATH)/drush.php
+[[ $(uname -a) == CYGWIN* ]] && SCRIPT_PATH=$(cygpath -w -a -- "$SCRIPT_PATH")
+
+# If it is not exported determine and export the number of columns.
+if [ -z $COLUMNS ]; then
+  export COLUMNS=$(tput cols)
+fi
+
+# Special case for *AMP installers, since they normally don't set themselves as the default cli php out of the box.
+#if [ -f /Applications/MAMP/bin/php5/bin/php ]; then # MAMP (OS X)
+#  /Applications/MAMP/bin/php5/bin/php $SCRIPT_PATH "$@"
+#elif [ -f /opt/lampp/bin/php ]; then # XAMPP on GNU/Linux
+#  /opt/lampp/bin/php $SCRIPT_PATH "$@"
+#elif [ -f /Applications/xampp/xamppfiles/bin/php ]; then # XAMPP on OS X
+#  /Applications/xampp/xamppfiles/bin/php $SCRIPT_PATH "$@"
+#else
+#   We check for a command line (cli) version of php, and if found use that.
+#  /usr/bin/env php-cli -v &> /dev/null
+#  if [ "$?" = 0 ] ; then
+#    /usr/bin/env php-cli $SCRIPT_PATH "$@"
+#  else
+#     Alternatively we run with straight php, which works on most other systems.
+    /usr/bin/env php $SCRIPT_PATH "$@"
+#  fi
+#fi
