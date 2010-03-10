@@ -52,6 +52,7 @@ set noshowmatch
 set foldcolumn=0
 set scrolloff=6
 set clipboard=unnamed
+set wildmenu
 
 " position cursor where nothing exists in visual mode
 set virtualedit=block

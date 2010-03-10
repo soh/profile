@@ -3,6 +3,7 @@
 # rm ~/.vim
 # rm ~/.vimrc
 # rm ~/bin
+ln -s ~/.profile/.bash_profile  ~/.bash_profile
 ln -s ~/.profile/.bashrc  ~/.bashrc
 ln -s ~/.profile/.inputrc ~/.inputrc
 ln -s ~/.profile/.vim     ~/.vim

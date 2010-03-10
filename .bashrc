@@ -1,6 +1,6 @@
 if [ "$PS1" ]; then
 #     PATH=~/bin:/opt/local/bin:/sw/bin:/sw/sbin:/usr/local/bin:"${PATH}":/usr/local/mysql/bin
-    PATH=~/bin:~/bin/drush:/opt/local/bin:/usr/local/bin:/usr/local/sbin:"${PATH}":/opt/local/lib/mysql5/bin:/opt/local/lib/postgresql83/bin
+    PATH=~/bin:/www/bin:/opt/local/bin:/usr/local/bin:/usr/local/sbin:/usr/local/mysql/bin:/opt/local/sbin:"${PATH}":/opt/local/lib/mysql5/bin:/opt/local/lib/postgresql83/bin
     export MANPATH=/sw/share/man:/opt/local/share/man:/usr/share/man:/usr/local/mysql/man:/usr/X11R6/man:/usr/local/man
 
     shopt -s histappend
@@ -9,7 +9,7 @@ if [ "$PS1" ]; then
     export HISTIGNORE="&:l:la:[bf]g*:exit:clear"  
     export CLICOLOR=1
     export FTP_PASSIVE=1
-    export EDITOR=/opt/local/bin/vim
+    export EDITOR=/usr/bin/vim
     export RANDFILE=/dev/random
     export CVSIGNORE='*.swp'
     export PERL5_USERLIB=/Users/soh/Library/Perl
