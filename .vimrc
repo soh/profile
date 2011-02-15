@@ -284,3 +284,4 @@ augroup END
 " 	finish
 " endif
 
+autocmd BufWritePre * :%s/\s\+$//e

@@ -9,3 +9,4 @@ ln -s ~/.profile/.inputrc ~/.inputrc
 ln -s ~/.profile/.vim     ~/.vim
 ln -s ~/.profile/.vimrc   ~/.vimrc
 ln -s ~/.profile/bin      ~/bin
+ln -s ~/.profile/.gitconfig ~/.gitconfig

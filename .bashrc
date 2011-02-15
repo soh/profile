@@ -6,7 +6,7 @@ if [ "$PS1" ]; then
     shopt -s histappend
     export HISTCONTROL=erasedups
     export HISTSIZE=100000
-    export HISTIGNORE="&:l:la:[bf]g*:exit:clear"  
+    export HISTIGNORE="&:l:la:[bf]g*:exit:clear"
     export CLICOLOR=1
     export FTP_PASSIVE=1
     export EDITOR=/usr/bin/vim
@@ -29,7 +29,6 @@ if [ "$PS1" ]; then
 
     set -o vi
     bind -m vi-insert "\C-l":clear-screen
-
 
     alias screennp='screen -c ~/.screenrc_newproject'
     alias Pwd='pwd -P'
@@ -63,23 +62,6 @@ if [ "$PS1" ]; then
     alias fps='ps axw | grep'
     alias top='top -o cpu'
     alias val='vim /var/log/httpd/error_log'
-
-    alias talbanana6000='tail -f /var/log/httpd/error/banana6000.raan.net'
-    alias talblog='tail -f /var/log/httpd/error/blog.dev'
-    alias talvalidop='tail -f /var/log/httpd/error/validop.dev'
-    alias taltheamazingscorn='tail -f /var/log/httpd/error/theamazingscorn.dev'
-    alias talcoffeeplant='tail -f /var/log/httpd/error/coffeeplant'
-    alias talvalidapp='tail -f /var/log/httpd/error/validapp.dev'
-    alias talmoviemadness='tail -f /var/log/httpd/error/moviemadness.dev'
-    alias talgreengables='tail -f /var/log/httpd/error/greengables'
-    alias talgobiodiesel='tail -f /var/log/httpd/error/gobiodiesel'
-    alias talemc='tail -f /var/log/httpd/error/elementalclinic-current'
-    alias talemcsimple='tail -f /var/log/httpd/error/elementalclinic-simple'
-    alias talemcsimple='tail -f /var/log/httpd/error/elementalclinic-simple'
-    alias talhomestreet='tail -f /var/log/httpd/error/elementalclinic-homestreet'
-    alias taljetcat='tail -f /opt/local/apache2/logs/error/jetcat.elementalclinic.dev.log'
-
-    alias emclog='sudo chown www:admin /var/log/elementalclinic/*.log;sudo chmod 775 /var/log/elementalclinic/*.log'
 
     alias cl='clear;ls -lAh'
 
@@ -129,7 +111,7 @@ if [ "$PS1" ]; then
         ls -lAh `perl -e '$_=shift;$_=\`perldoc -l $_\`;s/(\w+\.pm)$//;print $1' $*`;
     }
 
-    export PROVE_SWITCHES="-l lib" 
+    export PROVE_SWITCHES="-l lib"
 
 #   functional aliasii
     alias cdl=_cd_ls
@@ -181,11 +163,6 @@ if [ "$PS1" ]; then
     alias omutt='ssh -t oliver mutt'
     alias Omutt='ssh -t Oliver mutt'
 
-#    alias ostunnel='kps ; ssh -fN oolon-tunnels'
-    alias ostunnel='ssh -fN oolon-tunnels'
-    alias Oliver_music_tunnel='ssh -fN Oliver-music-tunnel'
-    alias osirc='kps ; ssh -fN oolon-tunnels ; open ~/Applications/Colloquy.app'
-
 # version control
     alias sdv='svn diff | vim -R -'
     alias svs="date;svn status | sort | ack -v '^X ' | ack '^ ?. '"
@@ -198,9 +175,12 @@ if [ "$PS1" ]; then
 # git
     export EMAIL=randall@opensourcery.com
     alias gits='git status'
+    source ~/.git-completion.sh
+
 
 # rails
     alias gll='gem list --local'
+    alias ss='script/server'
 
     export CVS_RSH=ssh
     export PGDATA=/usr/local/pgsql/data
