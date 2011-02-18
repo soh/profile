@@ -1,0 +1,22 @@
+source .screenrc
+
+screen bash
+title "Management"
+screen bash
+title "JavaScript"
+screen bash
+title "Testing"
+screen bash
+title "Controller"
+screen bash
+title "Layout"
+screen bash
+title "View"
+screen bash
+title "CSS"
+screen bash
+title "Database"
+screen bash
+title "Server/Log"
+screen bash
+title "VCS"

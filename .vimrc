@@ -37,8 +37,8 @@ set backspace=indent,eol,start
 set cinkeys=0{,0},0),:,!^F,o,O,e
 
 " *** TABS
-set tabstop=4
-set shiftwidth=4
+set tabstop=2
+set shiftwidth=2
 set expandtab
 set shiftround
 
@@ -94,7 +94,7 @@ else
 endif
 
 " turn off paren highlighting
-let loaded_matchparen = 1  
+let loaded_matchparen = 1
 
 " *** perl stuff
 let perl_include_pod = 1
@@ -223,28 +223,28 @@ imap \= <ESC>YpVr=
 map \M <esc>0mMG?--<cr>dg`MkO<cr>r<esc>gg<c-o>
 
 augroup JumpCursorOnEdit " {{{
-  au! 
-  autocmd BufReadPost * 
-    \ if expand("<afile>:p:h") !=? $TEMP | 
-    \   if line("'\"") > 1 && line("'\"") <= line("$") | 
-    \     let JumpCursorOnEdit_foo = line("'\"") | 
-    \     let b:doopenfold = 1 | 
-    \     if (foldlevel(JumpCursorOnEdit_foo) > foldlevel(JumpCursorOnEdit_foo - 1)) | 
-    \        let JumpCursorOnEdit_foo = JumpCursorOnEdit_foo - 1 | 
-    \        let b:doopenfold = 2 | 
-    \     endif | 
-    \     exe JumpCursorOnEdit_foo |         
-    \   endif | 
-    \ endif 
-  " Need to postpone using "zv" until after reading the modelines. 
-  autocmd BufWinEnter * 
-    \ if exists("b:doopenfold") | 
-    \   exe "normal zv" | 
-    \   if(b:doopenfold > 1) | 
-    \       exe  "+".1 | 
-    \   endif | 
-    \   unlet b:doopenfold | 
-    \ endif 
+  au!
+  autocmd BufReadPost *
+    \ if expand("<afile>:p:h") !=? $TEMP |
+    \   if line("'\"") > 1 && line("'\"") <= line("$") |
+    \     let JumpCursorOnEdit_foo = line("'\"") |
+    \     let b:doopenfold = 1 |
+    \     if (foldlevel(JumpCursorOnEdit_foo) > foldlevel(JumpCursorOnEdit_foo - 1)) |
+    \        let JumpCursorOnEdit_foo = JumpCursorOnEdit_foo - 1 |
+    \        let b:doopenfold = 2 |
+    \     endif |
+    \     exe JumpCursorOnEdit_foo |
+    \   endif |
+    \ endif
+  " Need to postpone using "zv" until after reading the modelines.
+  autocmd BufWinEnter *
+    \ if exists("b:doopenfold") |
+    \   exe "normal zv" |
+    \   if(b:doopenfold > 1) |
+    \       exe  "+".1 |
+    \   endif |
+    \   unlet b:doopenfold |
+    \ endif
 augroup END " }}}
 
 set foldtext=MyFoldText()
@@ -275,7 +275,7 @@ augroup END
 "         return "\<c-n>"
 "     endif
 " endfunction
-" 
+"
 " inoremap <S-tab> <c-r>=InsertTabWrapper ("backward")<cr>
 " inoremap <tab> <c-r>=InsertTabWrapper ("forward")<cr>
 

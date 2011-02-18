@@ -5,3 +5,9 @@
 
 [branch "master"]
     mergeoptions = --no-commit --no-ff
+[branch "next"]
+   mergeoptions = --no-commit --no-ff
+[branch "2.6.x"]
+   mergeoptions = --no-commit --no-ff
+[branch "2.6.next"]
+   mergeoptions = --no-commit --no-ff
