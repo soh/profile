@@ -4,6 +4,10 @@
 %time12%	HTML.txt	/*%time12%*
 %time24%	HTML.txt	/*%time24%*
 %vimversion%	HTML.txt	/*%vimversion%*
+:Ack	ack.txt	/*:Ack*
+:AckAdd	ack.txt	/*:AckAdd*
+:AckFile	ack.txt	/*:AckFile*
+:AckFromSearch	ack.txt	/*:AckFromSearch*
 :CVSAdd	cvscommand.txt	/*:CVSAdd*
 :CVSAnnotate	cvscommand.txt	/*:CVSAnnotate*
 :CVSCommit	cvscommand.txt	/*:CVSCommit*
@@ -26,6 +30,8 @@
 :CVSWatchers	cvscommand.txt	/*:CVSWatchers*
 :ColorSelect	HTML.txt	/*:ColorSelect*
 :HTMLmappings	HTML.txt	/*:HTMLmappings*
+:LAck	ack.txt	/*:LAck*
+:LAckAdd	ack.txt	/*:LAckAdd*
 :MatchDebug	matchit.txt	/*:MatchDebug*
 :SVNAdd	svncommand.txt	/*:SVNAdd*
 :SVNAnnotate	svncommand.txt	/*:SVNAnnotate*
@@ -107,6 +113,9 @@ SetIfUnset()	HTML.txt	/*SetIfUnset()*
 XHTML-macros	HTML.txt	/*XHTML-macros*
 [%	matchit.txt	/*[%*
 ]%	matchit.txt	/*]%*
+ack	ack.txt	/*ack*
+ack-author	ack.txt	/*ack-author*
+ack.txt	ack.txt	/*ack.txt*
 asa	dbext.txt	/*asa*
 ase	dbext.txt	/*ase*
 b:cvsOrigBuffNR	cvscommand.txt	/*b:cvsOrigBuffNR*
